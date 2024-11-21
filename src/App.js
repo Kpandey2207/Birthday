@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Star, Gift, Sparkles, Moon, Crown, Cake, Party, Music } from 'lucide-react';
 
+
+const useBackgroundMusic = (audioPath) => {
+  useEffect(() => {
+    const audio = new Audio(`${process.env.PUBLIC_URL}/audio/${audioPath}`);
+    audio.loop = true;
+    audio.play().catch(e => console.log("Audio autoplay prevented:", e));
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, [audioPath]);
+};
+
+
+
 // Floating Icon Component used in multiple pages
 const FloatingIcon = ({ Icon, style }) => {
   const [position, setPosition] = useState(style);
@@ -25,6 +41,9 @@ const FloatingIcon = ({ Icon, style }) => {
 };
 
 const CountdownPage = ({ onStartCelebration }) => {
+
+
+  useBackgroundMusic('WildestDream.mp3');
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -90,7 +109,7 @@ const CountdownPage = ({ onStartCelebration }) => {
       ))}
 
       <div className="text-center z-10 px-4">
-        <h1 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">Countdown</h1>
+        <h1 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">Tick-Tock to 18 O'Clock </h1>
         
         <div className="flex justify-center space-x-4">
           {Object.entries(timeLeft).map(([unit, value]) => (
@@ -196,6 +215,7 @@ const ShootingStar = ({ delay, duration, startPosition, angle }) => {
 };
 
 const MakeAWishPage = ({ onCompleteWish }) => {
+  useBackgroundMusic('Interstellar.mp3');
   const [showStars, setShowStars] = useState(true);
 
   useEffect(() => {
@@ -324,6 +344,7 @@ const MakeAWishPage = ({ onCompleteWish }) => {
 };
 
 const BirthdayPage = () => {
+  useBackgroundMusic('Aditi.mp3');
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
