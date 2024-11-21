@@ -6,15 +6,39 @@ const useBackgroundMusic = (audioPath) => {
   useEffect(() => {
     const audio = new Audio(`${process.env.PUBLIC_URL}/audio/${audioPath}`);
     audio.loop = true;
-    audio.play().catch(e => console.log("Audio autoplay prevented:", e));
+
+    // Function to play audio
+    const playAudio = async () => {
+      try {
+        if (audio.paused) {  // Only play if not already playing
+          await audio.play();
+          console.log(`Playing ${audioPath}`);
+        }
+      } catch (error) {
+        console.log(`Failed to play ${audioPath}:`, error);
+      }
+    };
+
+    // Try to play immediately
+    playAudio();
+
+    // Add click listener to the entire document
+    document.addEventListener('click', playAudio);
+    
+    // Add a visibility change listener to handle tab changes
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        playAudio();
+      }
+    });
 
     return () => {
       audio.pause();
       audio.currentTime = 0;
+      document.removeEventListener('click', playAudio);
     };
   }, [audioPath]);
 };
-
 
 
 // Floating Icon Component used in multiple pages
@@ -41,9 +65,6 @@ const FloatingIcon = ({ Icon, style }) => {
 };
 
 const CountdownPage = ({ onStartCelebration }) => {
-  
-  useBackgroundMusic('WildestDream.mp3');  // This will play music throughout
-
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -51,19 +72,42 @@ const CountdownPage = ({ onStartCelebration }) => {
     seconds: 0
   });
   const [isTimeUp, setIsTimeUp] = useState(false);
+  const hasAttemptedPlay = React.useRef(false);
+  const audioRef = React.useRef(new Audio(`${process.env.PUBLIC_URL}/audio/WildestDream.mp3`));
 
-  // Background floating icons configuration
-  const floatingIcons = [
-    { Icon: Heart, style: { top: '10%', left: '10%' } },
-    { Icon: Star, style: { top: '20%', right: '20%' } },
-    { Icon: Gift, style: { bottom: '15%', left: '25%' } },
-    { Icon: Sparkles, style: { top: '40%', right: '15%' } },
-    { Icon: Heart, style: { bottom: '30%', right: '30%' } },
-    { Icon: Star, style: { top: '60%', left: '15%' } },
-    { Icon: Sparkles, style: { bottom: '20%', right: '10%' } },
-    { Icon: Gift, style: { top: '30%', left: '30%' } },
-  ];
+  // Audio Effect
+  useEffect(() => {
+    const audio = audioRef.current;
+    audio.loop = true;
 
+    const playAudio = async () => {
+      if (!hasAttemptedPlay.current) {
+        try {
+          await audio.play();
+          hasAttemptedPlay.current = true;
+        } catch (error) {
+          console.log("Audio autoplay prevented:", error);
+        }
+      }
+    };
+
+    // Try to play immediately and on any user interaction
+    playAudio();
+    document.addEventListener('click', playAudio);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && hasAttemptedPlay.current) {
+        audio.play();
+      }
+    });
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+      document.removeEventListener('click', playAudio);
+    };
+  }, []);
+
+  // Countdown effect
   useEffect(() => {
     const targetDate = new Date('2024-11-22T00:00:00+05:30');
     
@@ -90,6 +134,18 @@ const CountdownPage = ({ onStartCelebration }) => {
 
     return () => clearInterval(timer);
   }, []);
+
+  // Background floating icons configuration
+  const floatingIcons = [
+    { Icon: Heart, style: { top: '10%', left: '10%' } },
+    { Icon: Star, style: { top: '20%', right: '20%' } },
+    { Icon: Gift, style: { bottom: '15%', left: '25%' } },
+    { Icon: Sparkles, style: { top: '40%', right: '15%' } },
+    { Icon: Heart, style: { bottom: '30%', right: '30%' } },
+    { Icon: Star, style: { top: '60%', left: '15%' } },
+    { Icon: Sparkles, style: { bottom: '20%', right: '10%' } },
+    { Icon: Gift, style: { top: '30%', left: '30%' } },
+  ];
 
   return (
     <div 
