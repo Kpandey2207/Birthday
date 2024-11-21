@@ -415,16 +415,6 @@ const BirthdayPage = () => {
             </p>
           </div>
 
-          <button 
-            className="bg-white/90 text-pink-600 px-12 py-4 rounded-full font-bold 
-                       hover:bg-white transition-all duration-300 flex items-center 
-                       justify-center space-x-2 shadow-xl transform hover:scale-105
-                       animate-bounce-gentle"
-            onClick={() => console.log('Opening gift...')}
-          >
-            <Gift className="mr-2" />
-            <span>Open Your Gift</span>
-          </button>
         </div>
       )}
 
