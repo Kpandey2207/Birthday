@@ -41,9 +41,9 @@ const FloatingIcon = ({ Icon, style }) => {
 };
 
 const CountdownPage = ({ onStartCelebration }) => {
+  
+  useBackgroundMusic('WildestDream.mp3');  // This will play music throughout
 
-
-  useBackgroundMusic('WildestDream.mp3');
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -173,7 +173,9 @@ const TooEarly = ({ onBack }) => {
           <p className="text-white/80">
           🥸What did ya expect pre-party booze!? No sneek peak here... 
           </p>
-          <p className="text-white/70">
+          <p className="text-white/70">Have Hot Chocolate Milk in meantime ☕😋 
+          </p>
+          <p className="text-white/60">
           Back to where ya came from Miss!!😜
           </p>
         </div>
@@ -393,15 +395,23 @@ const BirthdayPage = () => {
           </div>
 
           <h1 className="text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-pink-100 drop-shadow-lg">
-            Happy Birthday!
+            Happy Aditi's Day!
           </h1>
           
           <div className="max-w-2xl mx-auto text-xl mb-12 bg-white/20 backdrop-blur-sm p-8 rounded-2xl shadow-xl">
             <p className="mb-4 font-medium">
-              May your day sparkle with joy and laughter! ✨
+            Happy 18th, my favorite human! 🎉 
+            </p>
+            <p className="font-medium">
+            You're officially an adult now well, legally at least, because let's be honest, 
+            I'm still going to tease you like a kid. Today's all about celebrating you: the quirks, the sass, the unmatched
+            awesomeness. So here's to your first step into adulthood🥂. 🥳❤️ ✨
             </p>
             <p className="font-medium">
               Wishing you a year filled with amazing adventures and beautiful moments! 🌟
+            </p>
+            <p className="font-medium">
+              P.S - Also Happy National Cranberry Relish Day 😂
             </p>
           </div>
 
