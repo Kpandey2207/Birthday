@@ -163,19 +163,19 @@ const CountdownPage = ({ onStartCelebration }) => {
       {floatingIcons.map((icon, index) => (
         <FloatingIcon key={index} {...icon} />
       ))}
-
+ 
       <div className="text-center z-10 px-4">
         <h1 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">Tick-Tock to 19 O'Clock </h1>
         
         <div className="flex justify-center space-x-4">
           {Object.entries(timeLeft).map(([unit, value]) => (
-            <div key={unit} className="bg-white/20 backdrop-blur-sm p-4 rounded-lg w-24 shadow-lg">
+            <div key={unit} className="bg-white/20 backdrop-blur-sm p-4 rounded-lg w-32 shadow-lg">
               <div className="text-5xl font-extrabold text-white">{value}</div>
               <div className="text-sm uppercase text-white/80">{unit}</div>
             </div>
           ))}
         </div>
-
+ 
         <div className="flex justify-center mt-8">
           <button 
             onClick={onStartCelebration}
@@ -190,7 +190,7 @@ const CountdownPage = ({ onStartCelebration }) => {
       </div>
     </div>
   );
-};
+ };
 
 const TooEarly = ({ onBack }) => {
   const floatingIcons = [
