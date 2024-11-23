@@ -109,7 +109,7 @@ const CountdownPage = ({ onStartCelebration }) => {
 
   // Countdown effect
   useEffect(() => {
-    const targetDate = new Date('2024-11-22T00:00:00+05:30');
+    const targetDate = new Date('2025-11-22T00:00:00+05:30');
     
     const updateCountdown = () => {
       const now = new Date();
@@ -165,7 +165,7 @@ const CountdownPage = ({ onStartCelebration }) => {
       ))}
 
       <div className="text-center z-10 px-4">
-        <h1 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">Tick-Tock to 18 O'Clock </h1>
+        <h1 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">Tick-Tock to 19 O'Clock </h1>
         
         <div className="flex justify-center space-x-4">
           {Object.entries(timeLeft).map(([unit, value]) => (
@@ -520,7 +520,7 @@ const App = () => {
   const [page, setPage] = React.useState('countdown');
 
   const handleStartCelebration = () => {
-    const targetDate = new Date('2024-11-22T00:00:00+05:30');
+    const targetDate = new Date('2025-11-22T00:00:00+05:30');
     const now = new Date();
     
     if (now >= targetDate) {
